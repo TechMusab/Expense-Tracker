@@ -1,38 +1,37 @@
-let save = document.querySelector('.save');
-const expensename = document.querySelector('.nameinput');
-const expense = document.querySelector('.expenseinput');
-const date = document.querySelector('.dateinput');
-let items=document.querySelector('.items');
-items.innerHTML="";
-let array = (JSON.parse(localStorage.getItem('array'))) || [];
-function deleteitems(){
-    let deletesbtn=document.querySelectorAll('.delete');
-    deletesbtn.forEach((button, index) => {
-        button.addEventListener("click", (e) => {
-            array.splice(index, 1); 
-            localStorage.setItem("array",JSON.stringify(array));
-            saveitems(); 
-        });
-    })
-    }
+let save = document.querySelector(".save");
+const expensename = document.querySelector(".nameinput");
+const expense = document.querySelector(".expenseinput");
+const date = document.querySelector(".dateinput");
+let items = document.querySelector(".items");
+items.innerHTML = "";
+let array = JSON.parse(localStorage.getItem("array")) || [];
+function deleteitems() {
+  let deletesbtn = document.querySelectorAll(".delete");
+  deletesbtn.forEach((button, index) => {
+    button.addEventListener("click", (e) => {
+      array.splice(index, 1);
+      localStorage.setItem("array", JSON.stringify(array));
+      saveitems();
+    });
+  });
+}
 
-save.addEventListener("click", e => {
-    e.preventDefault();
-    let obj = {
-        name: expensename.value,
-        expense: expense.value,
-        date: date.value
-    };
-    
-    array.push(obj);
-    localStorage.setItem("array",JSON.stringify(array));
-    saveitems();
-    console.log(array);
+save.addEventListener("click", (e) => {
+  e.preventDefault();
+  let obj = {
+    name: expensename.value,
+    expense: expense.value,
+    date: date.value,
+  };
+
+  array.push(obj);
+  localStorage.setItem("array", JSON.stringify(array));
+  saveitems();
+  console.log(array);
 });
 
-function gethtml(name,amount,date){
-  
-    items.innerHTML+=`
+function gethtml(name, amount, date) {
+  items.innerHTML += `
     <div class="item">
                 <h4>
                     ${name}
@@ -48,14 +47,13 @@ function gethtml(name,amount,date){
                 </button>
             </div>
     `;
-
 }
-function saveitems(){
-    items.innerHTML="";
-    for(let item of array){
-        gethtml(item.name,item.expense,item.date);
-    }
-    deleteitems();
+function saveitems() {
+  items.innerHTML = "";
+  for (let item of array) {
+    gethtml(item.name, item.expense, item.date);
+  }
+  deleteitems();
 }
 saveitems();
 // Challange i have faced during this
